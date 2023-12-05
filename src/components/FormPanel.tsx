@@ -1,4 +1,4 @@
-import { Button, Flex } from "@radix-ui/themes";
+import { Button, Flex } from '@radix-ui/themes'
 import {
   Form,
   FormControl,
@@ -6,26 +6,21 @@ import {
   FormLabel,
   FormMessage,
   FormSubmit,
-} from "@radix-ui/react-form";
-import type { ChangeEvent, FormEvent, SetStateAction } from "react";
-import { useEffect, useState } from "react";
+} from '@radix-ui/react-form'
+import type { ChangeEvent, FormEvent } from 'react'
+import { useEffect } from 'react'
 import {
   collection,
   getDocs,
   getFirestore,
   query,
   where,
-} from "firebase/firestore";
+} from 'firebase/firestore'
 // import { z } from "zod";
-import { useRouter } from "next/navigation";
-import {
-  AccountForm,
-  type Account,
-  type FormState,
-} from "../context/AccountFormContext";
-import { Input } from "./ui/Input";
-import { Textarea } from "./ui/TextArea"
-import { currencyFormat } from "../utils/currencyFormat";
+import { AccountForm, type Account } from '../context/AccountFormContext'
+import { Input } from './ui/Input'
+import { Textarea } from './ui/TextArea'
+import { currencyFormat } from '../utils/currencyFormat'
 
 // TODO: add zod to verify fields
 // const formSchema = z.object({
@@ -35,9 +30,9 @@ import { currencyFormat } from "../utils/currencyFormat";
 // });
 
 interface FormInterface {
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>;
-  data: Account;
-  userId?: string;
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>
+  data: Account
+  userId?: string
 }
 
 export default function FormPanel({
@@ -45,45 +40,46 @@ export default function FormPanel({
   data,
   userId,
 }: FormInterface) {
-  const db = getFirestore();
-  const usersCollection = collection(db, "users");
+  const db = getFirestore()
+  const usersCollection = collection(db, 'users')
 
-  const { status, value, setStatus, setValue } = AccountForm();
+  const { status, value, setStatus, setValue } = AccountForm()
 
   useEffect(() => {
-    const q = query(usersCollection, where("id", "==", userId));
+    const q = query(usersCollection, where('id', '==', userId))
     getDocs(q)
       .then((querySnapshot) => {
         if (querySnapshot.size === 0) {
+          /* empty */
         } else {
           querySnapshot.forEach((doc) => {
-            data.setDescription(doc.data().description);
-            data.setPixKey(doc.data().pixKey);
-            data.setStatus(doc.data().clientNameMsg);
-          });
+            data.setDescription(doc.data().description)
+            data.setPixKey(doc.data().pixKey)
+            data.setStatus(doc.data().clientNameMsg)
+          })
         }
       })
       .catch((error) => {
-        console.error("Erro ao buscar usuário:", error);
-      });
-    getDocs;
-  }, []);
-
+        console.error('Erro ao buscar usuário:', error)
+      })
+    getDocs
+  }, [])
 
   const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
-     const formattedValue = currencyFormat(e.target.value);
-     setValue(formattedValue);
+    const formattedValue = currencyFormat(e.target.value)
+    setValue(formattedValue)
   }
 
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target
     setStatus((prevStatus) => ({
       ...prevStatus,
       [name]: value,
-    }));
-    console.log(status);
-  };
+    }))
+    console.log(status)
+  }
 
   return (
     <Form className="mt-10" onSubmit={handleSubmit}>
@@ -97,7 +93,12 @@ export default function FormPanel({
           </FormMessage>
         </Flex>
         <FormControl asChild>
-          <Input name="clientName" value={status.clientName} onChange={handleChange} required />
+          <Input
+            name="clientName"
+            value={status.clientName}
+            onChange={handleChange}
+            required
+          />
         </FormControl>
       </FormField>
       <FormField className="grid mb-4" name="qrcode">
@@ -163,5 +164,5 @@ export default function FormPanel({
         </Button>
       </FormSubmit>
     </Form>
-  );
+  )
 }

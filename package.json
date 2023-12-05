@@ -11,9 +11,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "yarn eslint --fix .",
     "copy-env": "cp .env.example .env"
-    
   },
   "dependencies": {
     "@radix-ui/react-form": "^0.0.3",
@@ -25,6 +24,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "encoding": "^0.1.13",
+    "eslint": "^8.55.0",
     "firebase": "^10.6.0",
     "gpix": "^1.1.8",
     "next": "^13.4.19",
@@ -43,15 +43,17 @@
     "@types/node": "^18.11.17",
     "@types/react": "^18.2.5",
     "@types/react-dom": "^18.2.4",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
     "autoprefixer": "^10.4.13",
     "eslint-config-custom": "*",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
     "postcss": "^8.4.20",
+    "prettier": "^3.1.0",
     "tailwind-config": "*",
     "tailwindcss": "^3.2.4",
     "tsconfig": "*",
     "typescript": "^5.1.6"
-    "next": "14.0.3",
-    "react": "^18",
-    "react-dom": "^18"
-  },
+  }
 }
