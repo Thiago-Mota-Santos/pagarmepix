@@ -1,31 +1,28 @@
-"use client";
-import { Box, Button, Card, Text } from "@radix-ui/themes";
-import { FileTextIcon } from "@radix-ui/react-icons";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { PIX } from "gpix/dist"
+'use client'
+import { Box, Button, Card, Text } from '@radix-ui/themes'
+import { FileTextIcon } from '@radix-ui/react-icons'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { PIX } from 'gpix/dist'
 
 export default function QrCode() {
-  const router = useRouter();
+  const router = useRouter()
 
   const handleRedirect = () => {
-    router.push("/dashboard");
-  };
+    router.push('/dashboard')
+  }
 
   const pix = PIX.static()
-    .setReceiverName("Thiago Mota dos Santos")
+    .setReceiverName('Thiago Mota dos Santos')
     .setReceiverCity('Campinas')
     .setKey('fcba8826-cbff-46e2-8c40-1b39896402a8')
     .setDescription('Donation with defined amount - GPIX') // optional
-    .isUniqueTransaction(true) 
+    .isUniqueTransaction(true)
     .setAmount(5.0)
 
-
-  
-
-  const value = "R$ 16.50";
+  const value = 'R$ 16.50'
   const desc =
-    "long description about the product description about the product";
+    'long description about the product description about the product'
   return (
     <div className="flex items-center justify-center h-screen">
       <Box className="flex items-center justify-center flex-col max-w-2xl w-[440px] h-[660px] border border-gray-400 rounded-3xl">
@@ -68,5 +65,5 @@ export default function QrCode() {
         </Button>
       </Box>
     </div>
-  );
+  )
 }

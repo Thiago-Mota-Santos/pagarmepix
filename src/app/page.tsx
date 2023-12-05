@@ -1,34 +1,33 @@
-"use client";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-import { UserAuth } from "./context/AuthContext";
-import Link from "next/link"
-import { cn } from "./utils/cn";
-import { buttonVariants } from "./components/ui/Button";
-import { Button, Separator, Text } from "@radix-ui/themes"
-import Image from "next/image";
-import { Input } from "./components/ui/Input";
-import GoogleIcon from "./components/GoogleIcon";
-import { Icons } from "./components/Icons";
+'use client'
+import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
+import { UserAuth } from '../context/AuthContext'
+import Link from 'next/link'
+import { cn } from '../utils/cn'
+import { buttonVariants } from '../components/ui/Button'
+import { Button, Separator, Text } from '@radix-ui/themes'
+import Image from 'next/image'
+import { Input } from '../components/ui/Input'
+import { Icons } from '../components/Icons'
 
 export default function Page() {
-  const { user, googleSignIn } = UserAuth();
+  const { user, googleSignIn } = UserAuth()
   const [isloading, setIsLoading] = useState(false)
-  const router = useRouter();
+  const router = useRouter()
   React.useEffect(() => {
     if (user) {
-      router.push("/dashboard");
+      router.push('/dashboard')
     }
-  }, [router, user]);
+  }, [router, user])
   const handleSignIn = () => {
     try {
       setIsLoading(true)
-      googleSignIn();
+      googleSignIn()
     } catch (error) {
       setIsLoading(false)
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   return (
     <>
@@ -36,8 +35,8 @@ export default function Page() {
         <Link
           href="/examples/authentication"
           className={cn(
-            buttonVariants({ variant: "ghost" }),
-            "absolute right-4 top-4 md:right-8 md:top-8"
+            buttonVariants({ variant: 'ghost' }),
+            'absolute right-4 top-4 md:right-8 md:top-8',
           )}
         >
           Login
@@ -82,41 +81,43 @@ export default function Page() {
                   priority
                 />
               </div>
-            <p className="mt-3 font-bold text-xl">
+              <p className="mt-3 font-bold text-xl">
                 Crie uma conta <br /> para o seu comércio
               </p>
-              <p className="text-gray-500 mt-4">
-               entre com sua conta Google.
-              </p>
+              <p className="text-gray-500 mt-4">entre com sua conta Google.</p>
             </div>
-            
+
             <Input name="email" placeholder="email" />
             <Input name="password" placeholder="password" />
             <Button className="bg-gray-800 hover:bg-gray-900 transition-all">
-              {isloading ?(
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin"/>
-              ) :
-
-              null
-              }
+              {isloading ? (
+                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+              ) : null}
               Entrar
             </Button>
             <div className="flex items-center justify-center">
-            <Separator size="3"/>
-            <Text as="span" size="2" color="gray" className=" inline bg-background px-2 text-muted-foreground">OU CONTINUE COM</Text>
-            <Separator size="3" />
+              <Separator size="3" />
+              <Text
+                as="span"
+                size="2"
+                color="gray"
+                className=" inline bg-background px-2 text-muted-foreground"
+              >
+                OU CONTINUE COM
+              </Text>
+              <Separator size="3" />
             </div>
 
-            
-            <button disabled={isloading}
+            <button
+              disabled={isloading}
               onClick={handleSignIn}
-              className="flex items-center justify-center px-6 py-3 mt-4 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 hover:bg-gray-50 w-full">
+              className="flex items-center justify-center px-6 py-3 mt-4 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 hover:bg-gray-50 w-full"
+            >
               {isloading ? (
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin"/>
-              
-              )
-            : <Icons.google className="mr-2 h-4 w-4" />
-            }
+                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                <Icons.google className="mr-2 h-4 w-4" />
+              )}
               <span className="mx-2">Login com o Google</span>
             </button>
             <p className="text-primary-400 mt-4">Termos e Condições</p>
@@ -124,5 +125,5 @@ export default function Page() {
         </div>
       </div>
     </>
-  );
+  )
 }
