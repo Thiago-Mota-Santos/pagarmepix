@@ -14,9 +14,10 @@ export interface FormState {
 }
 
 export interface Owner {
-  name: string
-  city: string
-  pixKey: string
+  name?: string
+  city?: string
+  pixKey?: string
+  status?: 'add' | 'update'
 }
 
 export interface Account {
@@ -34,6 +35,7 @@ export function AccountFormProvider({ children }: { children: ReactNode }) {
     name: '',
     city: '',
     pixKey: '',
+    status: 'add',
   })
   const [status, setStatus] = useState<FormState>({
     pixKeyStatus: 'none',

@@ -10,9 +10,7 @@ import { Avatar, Flex, Text } from '@radix-ui/themes'
 import { useRouter } from 'next/navigation'
 
 interface CardProps {
-  add?: boolean
-  update?: boolean
-  create?: boolean
+  status?: 'add' | 'update'
 }
 
 type InfoType = {
@@ -20,22 +18,22 @@ type InfoType = {
   description: string
   buttonText: string
   avatarSvg: string
+  handleClick: () => void
 }
 
-type InfoObjectType = {
-  add: InfoType
-  create: InfoType
-  update: InfoType
-}
-
-export function ContentCard({ add, create, update }: CardProps) {
+export function ContentCard({ status }: CardProps) {
   const router = useRouter()
 
   const handleClick = () => {
+    console.log('Clicou')
     router.push('/add')
   }
 
-  const info: InfoObjectType = {
+  const handleCreate = () => {
+    router.push('/create')
+  }
+
+  const info = {
     add: {
       title: 'Adicione suas credenciais',
       description: 'Cadastre suas informações para utilizar o serviço',
@@ -56,13 +54,14 @@ export function ContentCard({ add, create, update }: CardProps) {
     },
   }
 
-  const renderCard = ({
+  const RenderCard = ({
     title,
     description,
     buttonText,
     avatarSvg,
+    handleClick,
   }: InfoType) => (
-    <Card className="hover:border hover:border-black hover:transition-all">
+    <Card className="hover:border  hover:border-black hover:transition-all">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
@@ -94,30 +93,40 @@ export function ContentCard({ add, create, update }: CardProps) {
 
   return (
     <>
-      {create
-        ? renderCard({
-            title: info.create.title,
-            description: info.create.description,
-            buttonText: info.create.buttonText,
-            avatarSvg: info.create.avatarSvg,
-          })
-        : null}
-      {add
-        ? renderCard({
-            title: info.add.title,
-            description: info.add.description,
-            buttonText: info.add.buttonText,
-            avatarSvg: info.add.avatarSvg,
-          })
-        : null}
-      {update
-        ? renderCard({
-            title: info.update.title,
-            description: info.update.description,
-            buttonText: info.update.buttonText,
-            avatarSvg: info.update.avatarSvg,
-          })
-        : null}
+      <div>
+        {/* {add && (
+          <RenderCard
+            title={info.add.title}
+            description={info.add.description}
+            buttonText={info.add.buttonText}
+            avatarSvg={info.add.avatarSvg}
+          />
+        )} */}
+        {status === 'add' ? (
+          <RenderCard
+            title={info.add.title}
+            description={info.add.description}
+            buttonText={info.add.buttonText}
+            avatarSvg={info.add.avatarSvg}
+            handleClick={handleClick}
+          />
+        ) : (
+          <RenderCard
+            title={info.update.title}
+            description={info.update.description}
+            buttonText={info.update.buttonText}
+            avatarSvg={info.update.avatarSvg}
+            handleClick={handleClick}
+          />
+        )}
+      </div>
+      <RenderCard
+        title={info.create.title}
+        description={info.create.description}
+        buttonText={info.create.buttonText}
+        avatarSvg={info.create.avatarSvg}
+        handleClick={handleCreate}
+      />
     </>
   )
 }
