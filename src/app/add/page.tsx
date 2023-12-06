@@ -4,13 +4,17 @@ import { Button, Flex, Text } from '@radix-ui/themes'
 import { Form, FormSubmit } from '@radix-ui/react-form'
 import { ContentForm } from '@/components/form'
 import { AccountForm } from '@/context/AccountFormContext'
-import { ChangeEvent, FormEvent } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { UserAuth } from '@/context/AuthContext'
 import DashboardHeader from '@/components/DashboardHeader'
+import { doc, setDoc } from 'firebase/firestore'
+import { db } from '@/firebase'
+import { useRouter } from 'next/navigation'
 
 export default function Add() {
   const { owner, setOwner } = AccountForm()
   const { user, logOut } = UserAuth()
+  const router = useRouter()
 
   const handleLogOut = () => {
     try {
@@ -26,18 +30,32 @@ export default function Add() {
     const { name, value } = e.target
     setOwner((prevStatus) => ({
       ...prevStatus,
+      status: 'update',
       [name]: value,
     }))
+  }
+
+  if (!user) {
+    return null
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(owner)
     // TODO: setDoc
-  }
-
-  if (!user) {
-    return null
+    // TODO: loading statement
+    try {
+      setDoc(doc(db, 'owner', user.uid), {
+        name: owner.name,
+        city: owner.city,
+        pixKey: owner.pixKey,
+        owner: owner.status,
+      })
+      // TODO: add toast here
+      router.push('/dashboard')
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   return (
