@@ -10,10 +10,11 @@ import FormPanel from '../../components/FormPanel'
 import type { Account } from '../../context/AccountFormContext'
 import { AccountForm } from '../../context/AccountFormContext'
 import DashboardHeader from '../../components/DashboardHeader'
+import { useToast } from '@/components/ui/useToast'
 
 export default function Create() {
   const { status, value, setStatus, setValue, owner, setOwner } = AccountForm()
-
+  const { toast } = useToast()
   const data: Account = {
     setStatus,
     status,
@@ -27,14 +28,19 @@ export default function Create() {
 
   const db = getFirestore()
   const usersCollection = collection(db, 'users')
-
   const router = useRouter()
 
   useEffect(() => {
-    if (user) {
-      console.log('logged!')
-    } else if (user === null) {
+    if (!user) {
       router.push('/')
+    }
+    if (owner.status === 'add') {
+      toast({
+        title: 'Cadastre suas credenciais primeiro!',
+        description: 'Você não pode criar um QRCODE sem registrar seus dados',
+        variant: 'destructive',
+      })
+      router.push('/dashboard')
     }
   }, [router, user])
 
@@ -61,6 +67,9 @@ export default function Create() {
         value: data.value,
         photoURL: user?.photoURL,
         id: user?.uid,
+      })
+      toast({
+        title: 'QRCODE criado com sucesso! 🎉 🥳',
       })
       router.push('/qrcode')
     } catch (error) {
