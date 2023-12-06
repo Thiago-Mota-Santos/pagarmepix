@@ -19,13 +19,13 @@ type InfoType = {
   buttonText: string
   avatarSvg: string
   handleClick: () => void
+  disabled?: boolean
 }
 
 export function ContentCard({ status }: CardProps) {
   const router = useRouter()
 
   const handleClick = () => {
-    console.log('Clicou')
     router.push('/add')
   }
 
@@ -60,6 +60,7 @@ export function ContentCard({ status }: CardProps) {
     buttonText,
     avatarSvg,
     handleClick,
+    disabled,
   }: InfoType) => (
     <Card className="hover:border  hover:border-black hover:transition-all">
       <CardHeader>
@@ -80,6 +81,7 @@ export function ContentCard({ status }: CardProps) {
             </div>
           </Flex>
           <Button
+            disabled={disabled}
             onClick={handleClick}
             className="hover:bg-gray-300 hover:transition-all"
             variant="secondary"
@@ -94,14 +96,6 @@ export function ContentCard({ status }: CardProps) {
   return (
     <>
       <div>
-        {/* {add && (
-          <RenderCard
-            title={info.add.title}
-            description={info.add.description}
-            buttonText={info.add.buttonText}
-            avatarSvg={info.add.avatarSvg}
-          />
-        )} */}
         {status === 'add' ? (
           <RenderCard
             title={info.add.title}

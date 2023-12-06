@@ -4,16 +4,18 @@ import { Button, Flex, Text } from '@radix-ui/themes'
 import { Form, FormSubmit } from '@radix-ui/react-form'
 import { ContentForm } from '@/components/form'
 import { AccountForm } from '@/context/AccountFormContext'
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent } from 'react'
 import { UserAuth } from '@/context/AuthContext'
 import DashboardHeader from '@/components/DashboardHeader'
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { useRouter } from 'next/navigation'
+import { useToast } from '@/components/ui/useToast'
 
 export default function Add() {
   const { owner, setOwner } = AccountForm()
   const { user, logOut } = UserAuth()
+  const { toast } = useToast()
   const router = useRouter()
 
   const handleLogOut = () => {
@@ -51,7 +53,10 @@ export default function Add() {
         pixKey: owner.pixKey,
         owner: owner.status,
       })
-      // TODO: add toast here
+      toast({
+        title: 'Credenciais salvas 🎉 🥳',
+        description: 'Agora você pode criar seu QRCODE!',
+      })
       router.push('/dashboard')
     } catch (e) {
       console.error(e)
