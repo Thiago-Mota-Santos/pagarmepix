@@ -1,73 +1,79 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { UserAuth } from '../context/AuthContext'
 import Link from 'next/link'
 import { cn } from '../utils/cn'
 import { buttonVariants } from '../components/ui/Button'
-import { Button, Separator, Text } from '@radix-ui/themes'
+import { Separator, Text } from '@radix-ui/themes'
 import Image from 'next/image'
-import { Input } from '../components/ui/Input'
 import { Icons } from '../components/Icons'
+import { useToast } from '@/components/ui/useToast'
+
+interface Loading {
+  email?: boolean
+  google?: boolean
+}
 
 export default function Page() {
   const { user, googleSignIn } = UserAuth()
-  const [isloading, setIsLoading] = useState(false)
+  const [loading, setLoading] = useState<Loading>({
+    email: false,
+    google: false,
+  })
   const router = useRouter()
-  React.useEffect(() => {
+  const { toast } = useToast()
+  useEffect(() => {
     if (user) {
       router.push('/dashboard')
     }
   }, [router, user])
   const handleSignIn = () => {
     try {
-      setIsLoading(true)
+      setLoading({
+        google: true,
+      })
       googleSignIn()
+      toast({
+        title: 'Seja bem vindo 🎉🥳',
+      })
     } catch (error) {
-      setIsLoading(false)
+      setLoading({
+        google: false,
+      })
+      toast({
+        title: 'Algo deu errado :(',
+        description: String(error),
+        variant: 'destructive',
+      })
       console.error(error)
     }
   }
 
+  // const handleNormalLogin = async () => {
+  //   try {
+  //     setLoading({
+  //       email: true,
+  //     })
+  //     await normalSignIn()
+  //   } catch (error) {
+  //     setLoading({
+  //       email: false,
+  //     })
+  //     toast({
+  //       title: 'Algo deu errado :(',
+  //       description: String(error),
+  //       variant: 'destructive',
+  //     })
+  //     console.error(error)
+  //   }
+  // }
+
   return (
     <>
       <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-        <Link
-          href="/examples/authentication"
-          className={cn(
-            buttonVariants({ variant: 'ghost' }),
-            'absolute right-4 top-4 md:right-8 md:top-8',
-          )}
-        >
-          Login
-        </Link>
-        <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
-          <div className="absolute inset-0 bg-zinc-900" />
-          <div className="relative z-20 flex items-center text-lg font-medium">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="mr-2 h-6 w-6"
-            >
-              <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />
-            </svg>
-            Acme Inc
-          </div>
-          <div className="relative z-20 mt-auto">
-            <blockquote className="space-y-2">
-              <p className="text-lg">
-                &ldquo;This library has saved me countless hours of work and
-                helped me deliver stunning designs to my clients faster than
-                ever before.&rdquo;
-              </p>
-              <footer className="text-sm">Sofia Davis</footer>
-            </blockquote>
-          </div>
+        <div className="relative hidden h-full flex-col bg-[url('/home.svg')] bg-auto p-10 text-white dark:border-r lg:flex">
+          <div className="absolute inset-0 " />
         </div>
         <div className="lg:p-8">
           <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
@@ -87,14 +93,32 @@ export default function Page() {
               <p className="text-gray-500 mt-4">entre com sua conta Google.</p>
             </div>
 
-            <Input name="email" placeholder="email" />
-            <Input name="password" placeholder="password" />
-            <Button className="bg-gray-800 hover:bg-gray-900 transition-all">
-              {isloading ? (
+            {/* TODO: add email/senha login */}
+
+            {/* <Input
+              name="email"
+              value={email}
+              placeholder="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              name="password"
+              value={password}
+              type="password"
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)} 
+            />
+          */}
+            {/* <Button
+              disabled={loading.email}
+              onClick={handleNormalLogin}
+              className="bg-gray-800 hover:bg-gray-900 transition-all"
+            >
+              {loading.email ? (
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
               Entrar
-            </Button>
+            </Button> */}
             <div className="flex items-center justify-center">
               <Separator size="3" />
               <Text
@@ -109,11 +133,11 @@ export default function Page() {
             </div>
 
             <button
-              disabled={isloading}
+              disabled={loading.google}
               onClick={handleSignIn}
               className="flex items-center justify-center px-6 py-3 mt-4 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 hover:bg-gray-50 w-full"
             >
-              {isloading ? (
+              {loading.google ? (
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : (
                 <Icons.google className="mr-2 h-4 w-4" />
