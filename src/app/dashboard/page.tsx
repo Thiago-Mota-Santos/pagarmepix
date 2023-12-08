@@ -8,9 +8,11 @@ import { useEffect } from 'react'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { AccountForm } from '@/context/AccountFormContext'
+import { useRouter } from 'next/navigation'
 
 export default function Dashboard() {
   const { user, logOut } = UserAuth()
+  const router = useRouter()
   const { owner, setOwner } = AccountForm()
   const ownerCollection = collection(db, 'owner')
 
@@ -18,9 +20,10 @@ export default function Dashboard() {
     return null
   }
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     try {
-      logOut()
+      await logOut()
+      router.push('/login')
     } catch (error) {
       console.log(error)
     }
@@ -29,11 +32,14 @@ export default function Dashboard() {
   useEffect(() => {
     const q = query(ownerCollection, where('owner', '==', 'update'))
     getDocs(q).then((QuerySnapshot) => {
-      QuerySnapshot.forEach((doc) => {
+      QuerySnapshot.forEach((doc) =>
         setOwner({
           status: doc.data().owner,
-        })
-      })
+          city: doc.data().city,
+          name: doc.data().name,
+          pixKey: doc.data().pixKey,
+        }),
+      )
     })
   }, [])
 

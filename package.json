@@ -23,6 +23,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/themes": "^2.0.0",
+    "@vercel/analytics": "^1.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "encoding": "^0.1.13",
@@ -30,6 +31,7 @@
     "firebase": "^10.6.0",
     "framer-motion": "^10.16.14",
     "gpix": "^1.1.8",
+    "lucide-react": "^0.294.0",
     "next": "^13.4.19",
     "qrcode.react": "^3.1.0",
     "react": "^18.2.0",
@@ -38,7 +40,8 @@
     "react-hook-form": "^7.48.2",
     "react-text-mask": "^5.5.0",
     "rifm": "^0.12.1",
-    "tailwind-merge": "^2.0.0",
+    "tailwind-merge": "^2.1.0",
+    "tailwindcss-animate": "^1.0.7",
     "yarn": "^1.22.19"
   },
   "devDependencies": {

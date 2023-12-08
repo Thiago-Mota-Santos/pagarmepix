@@ -1,153 +1,107 @@
 'use client'
+
+import { Button } from '@/components/ui/Button'
+import { UserAuth } from '@/context/AuthContext'
+import { ArrowRightIcon } from '@radix-ui/react-icons'
+import { Avatar } from '@radix-ui/themes'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { UserAuth } from '../context/AuthContext'
-import Link from 'next/link'
-import { cn } from '../utils/cn'
-import { buttonVariants } from '../components/ui/Button'
-import { Separator, Text } from '@radix-ui/themes'
 import Image from 'next/image'
-import { Icons } from '../components/Icons'
-import { useToast } from '@/components/ui/useToast'
 
-interface Loading {
-  email?: boolean
-  google?: boolean
-}
-
-export default function Page() {
-  const { user, googleSignIn } = UserAuth()
-  const [loading, setLoading] = useState<Loading>({
-    email: false,
-    google: false,
-  })
+export default function Home() {
   const router = useRouter()
-  const { toast } = useToast()
-  useEffect(() => {
-    if (user) {
-      router.push('/dashboard')
-    }
-  }, [router, user])
-  const handleSignIn = () => {
+  const { user, logOut } = UserAuth()
+
+  const handleLogOut = async () => {
     try {
-      setLoading({
-        google: true,
-      })
-      googleSignIn()
-      toast({
-        title: 'Seja bem vindo 🎉🥳',
-      })
+      await logOut()
     } catch (error) {
-      setLoading({
-        google: false,
-      })
-      toast({
-        title: 'Algo deu errado :(',
-        description: String(error),
-        variant: 'destructive',
-      })
-      console.error(error)
+      console.log(error)
     }
   }
 
-  // const handleNormalLogin = async () => {
-  //   try {
-  //     setLoading({
-  //       email: true,
-  //     })
-  //     await normalSignIn()
-  //   } catch (error) {
-  //     setLoading({
-  //       email: false,
-  //     })
-  //     toast({
-  //       title: 'Algo deu errado :(',
-  //       description: String(error),
-  //       variant: 'destructive',
-  //     })
-  //     console.error(error)
-  //   }
-  // }
+  const handleClick = () => {
+    router.push('/login')
+  }
 
   return (
-    <>
-      <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-        <div className="relative hidden h-full flex-col bg-[url('/home.svg')] bg-auto p-10 text-white dark:border-r lg:flex">
-          <div className="absolute inset-0 " />
+    <div className="flex flex-col h-screen justify-center items-center">
+      <header className="w-full h-4 md:px-64 flex justify-between items-center mt-16 bg-[#ffffff] ">
+        <div className="flex items-center space-x-2 ml-4">
+          <Image
+            src="./pix-hand.svg"
+            alt="pix-logo"
+            width={80}
+            height={80}
+            className="ml-auto"
+          />
         </div>
-        <div className="lg:p-8">
-          <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-            <div className="flex flex-col space-y-2 text-center">
-              <div className="flex justify-center mx-auto">
-                <Image
-                  src="/pix-hand.svg"
-                  alt="logo pix em cima da mão"
-                  width={70}
-                  height={70}
-                  priority
-                />
-              </div>
-              <p className="mt-3 font-bold text-xl">
-                Crie uma conta <br /> para o seu comércio
-              </p>
-              <p className="text-gray-500 mt-4">entre com sua conta Google.</p>
-            </div>
 
-            {/* TODO: add email/senha login */}
-
-            {/* <Input
-              name="email"
-              value={email}
-              placeholder="email"
-              onChange={(e) => setEmail(e.target.value)}
+        {!user ? (
+          <a
+            className="py-2 px-4 text-white bg-gray-950 normal-case rounded hover:scale-110"
+            href="/login"
+          >
+            Entrar
+          </a>
+        ) : (
+          <div className="flex gap-4">
+            <Avatar
+              src={user.photoURL || ''}
+              alt="profile"
+              width={60}
+              height={60}
+              className="rounded-full cursor-pointer"
+              fallback={'D'}
             />
-            <Input
-              name="password"
-              value={password}
-              type="password"
-              placeholder="password"
-              onChange={(e) => setPassword(e.target.value)} 
-            />
-          */}
-            {/* <Button
-              disabled={loading.email}
-              onClick={handleNormalLogin}
-              className="bg-gray-800 hover:bg-gray-900 transition-all"
-            >
-              {loading.email ? (
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-              ) : null}
-              Entrar
-            </Button> */}
-            <div className="flex items-center justify-center">
-              <Separator size="3" />
-              <Text
-                as="span"
-                size="2"
-                color="gray"
-                className=" inline bg-background px-2 text-muted-foreground"
+            <button onClick={handleLogOut}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-arrow-right-from-line"
               >
-                OU CONTINUE COM
-              </Text>
-              <Separator size="3" />
-            </div>
-
-            <button
-              disabled={loading.google}
-              onClick={handleSignIn}
-              className="flex items-center justify-center px-6 py-3 mt-4 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 hover:bg-gray-50 w-full"
-            >
-              {loading.google ? (
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <Icons.google className="mr-2 h-4 w-4" />
-              )}
-              <span className="mx-2">Login com o Google</span>
+                <path d="M3 5v14" />
+                <path d="M21 12H7" />
+                <path d="m15 18 6-6-6-6" />
+              </svg>
             </button>
-            <p className="text-primary-400 mt-4">Termos e Condições</p>
           </div>
+        )}
+      </header>
+      <section className="flex flex-col mt-16 md:flex-row items-center justify-center h-full px-4 md:px-6 md:ml-16 md:mb-24 md:mt-0">
+        <div className="md:flex-1 text-center space-y-4 md:text-left">
+          <h2 className="text-5xl font-bold tracking-tighter sm:text-6xl md:text-7xl">
+            Seja bem vindo ao Pagarmepix
+          </h2>
+          <h3 className="text-xl text-gray-500">
+            A solução baseada em PIX para o seu
+            <span className="text-gray-950 ml-1">comércio</span>
+          </h3>
+          <Button
+            onClick={handleClick}
+            variant="outline"
+            className="hover:cursor-pointer"
+          >
+            Veja mais
+            <ArrowRightIcon className="ml-2 h-4 w-4" />
+          </Button>
         </div>
-      </div>
-    </>
+        <div className="md:flex-1 flex flex-col items-center justify-center">
+          <Image
+            alt="SVG Placeholder"
+            className="object-contain object-center"
+            height="500"
+            src="/home.svg"
+            width="500"
+          />
+        </div>
+      </section>
+    </div>
   )
 }

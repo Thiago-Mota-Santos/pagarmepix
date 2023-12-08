@@ -1,18 +1,15 @@
 'use client'
 
-import type { ChangeEvent, FormEvent } from 'react'
+import type { FormEvent } from 'react'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button, Text } from '@radix-ui/themes'
+import { Text } from '@radix-ui/themes'
 import { addDoc, collection, getFirestore, Timestamp } from 'firebase/firestore'
 import { UserAuth } from '../../context/AuthContext'
 import type { Account } from '../../context/AccountFormContext'
 import { AccountForm } from '../../context/AccountFormContext'
 import DashboardHeader from '../../components/DashboardHeader'
 import { useToast } from '@/components/ui/useToast'
-import { ContentForm } from '@/components/form'
-import { Form, FormSubmit } from '@radix-ui/react-form'
-import { currencyFormat } from '@/utils/currencyFormat'
 import FormPanel from '@/components/FormPanel'
 
 export default function Create() {
