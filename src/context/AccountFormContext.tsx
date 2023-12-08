@@ -5,19 +5,17 @@ import React, { useContext, useState } from 'react'
 const AccountFormContext = React.createContext({} as Account)
 
 export interface FormState {
-  pixKeyStatus: 'success' | 'error' | 'none'
-  pixKey: string
-  descriptionStatus: 'success' | 'error' | 'none'
+  pixKey?: string
   description: ''
   clientNameStatus: 'success' | 'error' | 'none'
   clientName: string
 }
 
 export interface Owner {
-  name?: string
-  city?: string
-  pixKey?: string
-  status?: 'add' | 'update'
+  name: string
+  city: string
+  pixKey: string
+  status: 'add' | 'update'
 }
 
 export interface Account {
@@ -38,9 +36,6 @@ export function AccountFormProvider({ children }: { children: ReactNode }) {
     status: 'add',
   })
   const [status, setStatus] = useState<FormState>({
-    pixKeyStatus: 'none',
-    pixKey: '',
-    descriptionStatus: 'none',
     description: '',
     clientNameStatus: 'none',
     clientName: '',

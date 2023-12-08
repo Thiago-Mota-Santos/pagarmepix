@@ -1,6 +1,7 @@
 'use client'
 import { auth } from '@/firebase'
 import {
+  createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
@@ -9,7 +10,9 @@ import {
 } from 'firebase/auth'
 import {
   createContext,
+  Dispatch,
   ReactNode,
+  SetStateAction,
   useContext,
   useEffect,
   useState,
@@ -17,22 +20,33 @@ import {
 
 interface AuthContextProps {
   user: User | null
-  googleSignIn: () => void
-  logOut: () => void
+  googleSignIn: () => Promise<void>
+  logOut: () => Promise<void>
+  email: string
+  password: string
+  setEmail: Dispatch<SetStateAction<string>>
+  setPassword: Dispatch<SetStateAction<string>>
+  normalSignIn: () => Promise<void>
 }
 
 const AuthContext = createContext({} as AuthContextProps)
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
-  const googleSignIn = () => {
-    const provider = new GoogleAuthProvider()
-    signInWithPopup(auth, provider)
+  const normalSignIn = async () => {
+    await createUserWithEmailAndPassword(auth, email, password)
   }
 
-  const logOut = () => {
-    signOut(auth)
+  const googleSignIn = async () => {
+    const provider = new GoogleAuthProvider()
+    await signInWithPopup(auth, provider)
+  }
+
+  const logOut = async () => {
+    await signOut(auth)
   }
 
   useEffect(() => {
@@ -43,7 +57,18 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   }, [user])
 
   return (
-    <AuthContext.Provider value={{ user, googleSignIn, logOut }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        email,
+        password,
+        googleSignIn,
+        logOut,
+        setEmail,
+        setPassword,
+        normalSignIn,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

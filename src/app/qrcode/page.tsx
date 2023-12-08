@@ -84,9 +84,13 @@ export default function QrCode() {
       </Flex>
     )
 
-  const value = data.amount.replace(/[^\d,.]/g, '')
-  const valueFormatted = value.replace(',', '.')
-  const valueRemoved = parseFloat(valueFormatted)
+  const value = data.amount
+    .replace('R$', '')
+    .trim()
+    .replace(/\./g, '')
+    .replace(',', '.')
+  const valueFormatted = parseFloat(value)
+  console.log(valueFormatted)
 
   const pix = PIX.static()
     .setReceiverName(data.receiverName || '')
@@ -94,7 +98,7 @@ export default function QrCode() {
     .setKey(data.pixKey || '')
     .setDescription(data.description || '')
     .isUniqueTransaction(data.isUniqueTransaction || true)
-    .setAmount(valueRemoved)
+    .setAmount(valueFormatted)
 
   return (
     <div className="flex items-center justify-center h-screen">

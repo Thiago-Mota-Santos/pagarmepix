@@ -8,26 +8,11 @@ import {
   FormSubmit,
 } from '@radix-ui/react-form'
 import type { ChangeEvent, FormEvent } from 'react'
-import { useEffect } from 'react'
-import {
-  collection,
-  getDocs,
-  getFirestore,
-  query,
-  where,
-} from 'firebase/firestore'
-// import { z } from "zod";
+
 import { AccountForm, type Account } from '../context/AccountFormContext'
 import { Input } from './ui/Input'
 import { Textarea } from './ui/TextArea'
 import { currencyFormat } from '../utils/currencyFormat'
-
-// TODO: add zod to verify fields
-// const formSchema = z.object({
-//   username: z.string().min(1),
-//   pixKey: z.string().min(32),
-//   value: z,
-// });
 
 interface FormInterface {
   handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void>
@@ -35,38 +20,12 @@ interface FormInterface {
   userId?: string
 }
 
-export default function FormPanel({
-  handleSubmit,
-  data,
-  userId,
-}: FormInterface) {
-  const db = getFirestore()
-  const usersCollection = collection(db, 'users')
-
+export default function FormPanel({ handleSubmit }: FormInterface) {
   const { status, value, setStatus, setValue } = AccountForm()
-
-  useEffect(() => {
-    const q = query(usersCollection, where('id', '==', userId))
-    getDocs(q)
-      .then((querySnapshot) => {
-        if (querySnapshot.size === 0) {
-          /* empty */
-        } else {
-          querySnapshot.forEach((doc) => {
-            data.setDescription(doc.data().description)
-            data.setPixKey(doc.data().pixKey)
-            data.setStatus(doc.data().clientNameMsg)
-          })
-        }
-      })
-      .catch((error) => {
-        console.error('Erro ao buscar usuário:', error)
-      })
-    getDocs
-  }, [])
 
   const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
     const formattedValue = currencyFormat(e.target.value)
+    console.log(value)
     setValue(formattedValue)
   }
 
@@ -101,7 +60,7 @@ export default function FormPanel({
           />
         </FormControl>
       </FormField>
-      <FormField className="grid mb-4" name="qrcode">
+      {/* <FormField className="grid mb-4" name="qrcode">
         <Flex align="baseline" display="flex" justify="between">
           <FormLabel className="text-base font-medium text-black">
             Chave Pix
@@ -119,7 +78,7 @@ export default function FormPanel({
             required
           />
         </FormControl>
-      </FormField>
+      </FormField> */}
       <FormField className="grid mb-4" name="price">
         <Flex align="baseline" display="flex" justify="between">
           <FormLabel className="text-base font-medium text-black">
@@ -157,7 +116,7 @@ export default function FormPanel({
       </FormField>
       <FormSubmit asChild>
         <Button
-          className="bg-violet-600 h-9 px-4 py-2 shadow hover:bg-primary/90"
+          className="bg-gray-700 h-9 px-4 py-2 shadow hover:bg-primary/90"
           type="submit"
         >
           Criar QRCODE

@@ -1533,6 +1533,13 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
+"@vercel/analytics@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-1.1.1.tgz#2a712378a95014a548b4f9d2ae1ea0721433908d"
+  integrity sha512-+NqgNmSabg3IFfxYhrWCfB/H+RCUOCR5ExRudNG2+pcRehq628DJB5e1u1xqwpLtn4pAYii4D98w7kofORAGQA==
+  dependencies:
+    server-only "^0.0.1"
+
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"
@@ -3362,6 +3369,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+lucide-react@^0.294.0:
+  version "0.294.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.294.0.tgz#dc406e1e7e2f722cf93218fe5b31cf3c95778817"
+  integrity sha512-V7o0/VECSGbLHn3/1O67FUgBwWB+hmzshrgDVRJQhMh8uj5D3HBuIvhuAmQTtlupILSplwIZg5FTc4tTKMA2SA==
+
 merge-stream@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-2.0.0.tgz#52823629a14dd00c9770fb6ad47dc6310f2c1f60"
@@ -4117,6 +4129,11 @@ serialize-javascript@6.0.0:
   dependencies:
     randombytes "^2.1.0"
 
+server-only@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/server-only/-/server-only-0.0.1.tgz#0f366bb6afb618c37c9255a314535dc412cd1c9e"
+  integrity sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==
+
 set-blocking@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/set-blocking/-/set-blocking-2.0.0.tgz#045f9782d011ae9a6803ddd382b24392b3d890f7"
@@ -4317,12 +4334,17 @@ tailwind-config@*:
   resolved "https://registry.yarnpkg.com/tailwind-config/-/tailwind-config-0.1.2.tgz#f98fb710f8ef7535f41c1479de3511b5c7f66f71"
   integrity sha512-7ASrC14CermwwDh0kWeNGrmjZbL7L1fKLopqtSSpVjnwwZvrdo3iSVPWAlmHGkvdEZ7JtZ8UBq3p9qaT+it8+w==
 
-tailwind-merge@^2.0.0:
+tailwind-merge@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/tailwind-merge/-/tailwind-merge-2.1.0.tgz#541b407e0ec255651e92571d96b685e48f01999c"
   integrity sha512-l11VvI4nSwW7MtLSLYT4ldidDEUwQAMWuSHk7l4zcXZDgnCRa0V3OdCwFfM7DCzakVXMNRwAeje9maFFXT71dQ==
   dependencies:
     "@babel/runtime" "^7.23.5"
+
+tailwindcss-animate@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/tailwindcss-animate/-/tailwindcss-animate-1.0.7.tgz#318b692c4c42676cc9e67b19b78775742388bef4"
+  integrity sha512-bl6mpH3T7I3UFxuvDEXLxy/VuFxBk5bbzplh7tXI68mwMokNYd1t9qPBHlnyTwfa4JGC4zP516I1hYYtQ/vspA==
 
 tailwindcss@^3.2.4:
   version "3.3.6"
