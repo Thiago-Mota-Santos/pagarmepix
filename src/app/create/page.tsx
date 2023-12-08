@@ -1,16 +1,19 @@
 'use client'
 
-import type { FormEvent } from 'react'
+import type { ChangeEvent, FormEvent } from 'react'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Text } from '@radix-ui/themes'
-import { addDoc, collection, getFirestore } from 'firebase/firestore'
+import { Button, Text } from '@radix-ui/themes'
+import { addDoc, collection, getFirestore, Timestamp } from 'firebase/firestore'
 import { UserAuth } from '../../context/AuthContext'
-import FormPanel from '../../components/FormPanel'
 import type { Account } from '../../context/AccountFormContext'
 import { AccountForm } from '../../context/AccountFormContext'
 import DashboardHeader from '../../components/DashboardHeader'
 import { useToast } from '@/components/ui/useToast'
+import { ContentForm } from '@/components/form'
+import { Form, FormSubmit } from '@radix-ui/react-form'
+import { currencyFormat } from '@/utils/currencyFormat'
+import FormPanel from '@/components/FormPanel'
 
 export default function Create() {
   const { status, value, setStatus, setValue, owner, setOwner } = AccountForm()
@@ -62,11 +65,11 @@ export default function Create() {
     try {
       await addDoc(usersCollection, {
         description: data.status.description,
-        pixKey: data.status.pixKey,
         clientName: data.status.clientName,
         value: data.value,
         photoURL: user?.photoURL,
         id: user?.uid,
+        timestamp: Timestamp.fromDate(new Date()),
       })
       toast({
         title: 'QRCODE criado com sucesso! 🎉 🥳',
@@ -81,8 +84,8 @@ export default function Create() {
     <div className="bg-primary-50 w-full min-h-screen md:pb-10">
       <DashboardHeader handleLogOut={handleLogOut} user={user} />
       <div className="flex flex-col items-center justify-center md:items-start md:flex-row gap-8 md:px-40 pb-40 md:pb-0">
-        <div className="flex flex-col w-[800px] h-[500px] border border-gray-300 rounded-2xl md:mt-16 md:px-32">
-          <Text align="center" mt="4" size="6" weight="bold">
+        <div className="flex flex-col w-[800px] h-[400px] border border-gray-300 rounded-2xl md:mt-16 md:px-32">
+          <Text align="center" mt="5" size="6" weight="bold">
             Crie um novo QRCODE
           </Text>
           <FormPanel
