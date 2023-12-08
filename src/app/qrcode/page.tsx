@@ -1,11 +1,11 @@
 'use client'
-import { Box, Button, Card, Text } from '@radix-ui/themes'
+import { Box, Button, Card, Flex, Text } from '@radix-ui/themes'
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { PIX } from 'gpix/dist'
 import { useEffect, useState } from 'react'
-import { collection, getDocs, query } from 'firebase/firestore'
+import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { Skeleton } from '@/components/ui/Skelleton'
 
@@ -42,7 +42,9 @@ export default function QrCode() {
     const fetchData = async () => {
       try {
         const ownerQuerySnapshot = await getDocs(query(ownerCollection))
-        const userQuerySnapshot = await getDocs(query(usersCollection))
+        const userQuerySnapshot = await getDocs(
+          query(usersCollection, orderBy('timestamp', 'desc'), limit(1)),
+        )
 
         let combinedData = { ...data }
 
@@ -52,6 +54,7 @@ export default function QrCode() {
             description: doc.data().description,
             amount: doc.data().value,
           }
+          doc.data()
         })
 
         ownerQuerySnapshot.forEach((doc) => {
@@ -62,7 +65,6 @@ export default function QrCode() {
             receiverCity: doc.data().city,
             pixKey: doc.data().pixKey,
           }
-          console.log(doc.data().pixKey)
         })
 
         setData(combinedData)
@@ -76,7 +78,11 @@ export default function QrCode() {
   }, [])
 
   if (data.status === 'loading')
-    return <Skeleton className="w-[400px] h-[400px]" />
+    return (
+      <Flex display="flex" className="h-screen" align="center" justify="center">
+        <Skeleton className="w-[400px] h-[400px]" />
+      </Flex>
+    )
 
   const value = data.amount.replace(/[^\d,.]/g, '')
   const valueFormatted = value.replace(',', '.')
@@ -85,7 +91,7 @@ export default function QrCode() {
   const pix = PIX.static()
     .setReceiverName(data.receiverName || '')
     .setReceiverCity(data.receiverCity || '')
-    .setKey('54508095810')
+    .setKey(data.pixKey || '')
     .setDescription(data.description || '')
     .isUniqueTransaction(data.isUniqueTransaction || true)
     .setAmount(valueRemoved)
