@@ -1,7 +1,6 @@
 'use client'
 import { Box, Button, Card, Text } from '@radix-ui/themes'
 
-import { FileTextIcon } from '@radix-ui/react-icons'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { PIX } from 'gpix/dist'
@@ -17,7 +16,7 @@ interface DataState {
   pixKey?: string
   description?: string
   isUniqueTransaction?: boolean
-  amount?: string
+  amount: string
   brcode?: string
 }
 
@@ -50,7 +49,6 @@ export default function QrCode() {
         userQuerySnapshot.forEach((doc) => {
           combinedData = {
             ...combinedData,
-            status: 'success',
             description: doc.data().description,
             amount: doc.data().value,
           }
@@ -59,33 +57,43 @@ export default function QrCode() {
         ownerQuerySnapshot.forEach((doc) => {
           combinedData = {
             ...combinedData,
+            status: 'success',
             receiverName: doc.data().name,
             receiverCity: doc.data().city,
             pixKey: doc.data().pixKey,
           }
+          console.log(doc.data().pixKey)
         })
 
         setData(combinedData)
       } catch (error) {
         console.error('Erro ao buscar dados:', error)
       }
+      getDocs(ownerCollection)
+      getDocs(usersCollection)
     }
-
     fetchData()
   }, [])
+
+  if (data.status === 'loading')
+    return <Skeleton className="w-[400px] h-[400px]" />
+
+  const value = data.amount.replace(/[^\d,.]/g, '')
+  const valueFormatted = value.replace(',', '.')
+  const valueRemoved = parseFloat(valueFormatted)
 
   const pix = PIX.static()
     .setReceiverName(data.receiverName || '')
     .setReceiverCity(data.receiverCity || '')
-    .setKey(data.pixKey || '')
+    .setKey('54508095810')
     .setDescription(data.description || '')
     .isUniqueTransaction(data.isUniqueTransaction || true)
-    .setAmount(Number(data.amount) || 0)
+    .setAmount(valueRemoved)
 
   return (
     <div className="flex items-center justify-center h-screen">
       {data.status === 'success' ? (
-        <Box className="flex items-center justify-center flex-col max-w-2xl w-[440px] h-[660px] border border-gray-400 rounded-3xl">
+        <Box className="flex items-center justify-center flex-col max-w-2xl w-[440px] h-[600px] border border-gray-400 rounded-3xl">
           <Image alt="wallet icon" height="64" src="pix-hand.svg" width="64" />
           <Box className="mt-2 max-w-sm">
             <div className="flex justify-between">
@@ -102,7 +110,7 @@ export default function QrCode() {
             </Text>
           </Box>
 
-          <Card mt="4" size="4">
+          <Card mt="4" size="3">
             <Image
               alt="QRCODE"
               height={300}
@@ -118,7 +126,7 @@ export default function QrCode() {
           >
             Crie outro QRCODE
           </Button>
-          <Button
+          {/* <Button
             disabled={true}
             className="hover:cursor-pointer"
             color="gray"
@@ -126,14 +134,8 @@ export default function QrCode() {
             radius="large"
           >
             <FileTextIcon /> Imprimir
-          </Button>
+          </Button> */}
         </Box>
-      ) : null}
-
-      {data.status === 'loading' ? (
-        <>
-          <Skeleton className="w-[400px] h-[400px]" />
-        </>
       ) : null}
     </div>
   )
