@@ -17,9 +17,9 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: 'https://cdn.discordapp.com/attachments/859483678082072616/1182781589726429275/image.png?ex=6585f232&is=65737d32&hm=354412a2c6f8d103534b4904d0d293de89eb91c59fa7267b624b1af6833fe456&',
-        width: 800,
-        height: 600,
+        url: 'https://cdn.discordapp.com/attachments/859483678082072616/1183574072752353340/image.png?ex=6588d440&is=65765f40&hm=c07bca4903b26645cdf7a908721815ff6026fcc0e78957c9a2b071882b444154&',
+        width: 1200,
+        height: 630,
       },
     ],
   },
