@@ -21,7 +21,7 @@ Simple project that creates a qrcode, created at the request of a friend of mine
 
 ## 🏃💨 Starting
 
-Before you starting, make sure you meet the following requirement:
+Before starting, make sure you meet the following requirements:
 > `[🫡 node 18.x]`
 
 ```sh
