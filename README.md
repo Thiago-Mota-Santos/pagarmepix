@@ -45,9 +45,9 @@ git clone https://github.com/Thiago-Mota-Santos/pagarmepix.git
 
 ## ⚒️ Stack
 
- - NextJS 
- - TailwindCSS
- - Firebase
+ 1. NextJS 
+ 2. TailwindCSS
+ 3. Firebase
 
 ## 🤝 Contributing
 
