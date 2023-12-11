@@ -70,7 +70,7 @@ export default function Login() {
   return (
     <>
       <div className="container relative hidden h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
-        <div className="relative hidden h-full flex-col bg-[url('/home.svg')] bg-auto p-10 text-white dark:border-r lg:flex">
+        <div className="relative hidden h-full flex-col bg-[url('/home.svg')] bg-auto bg-no-repeat bg-center p-10 text-white dark:border-r lg:flex">
           <div className="absolute inset-0 " />
         </div>
         <div className="lg:p-8">
