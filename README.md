@@ -1,6 +1,6 @@
 
 <div align="center">
-<img src="https://cdn.discordapp.com/attachments/859483678082072616/1138843309364756480/sNeHufT.png" alt="project stack">
+<img src="https://cdn.discordapp.com/attachments/859483678082072616/1183738361102475265/image.png?ex=65896d42&is=6576f842&hm=123ea1328f9a7a4898513cf00b4febcbc692c73f4ebb8620158a70f6f2dfc44f&" alt="landing project">
 </div>
 
 ## Content
@@ -8,12 +8,9 @@
 ## 📌 Contents
 - [👋 Introduction](#-introduction)
 - [🏃💨 Starting](#-starting)
-- [✅ ✍️Prerequisites](#-prerequisites)
-- [💻 How to use](#-how)
 - [⚒️ stack](#-stack)
 - [🤝 Contributing](#-contributing)
-
-- [📫 Social media](#-contact)
+- [📫 Media](#-media)
 ---
 
 </hr>
@@ -26,8 +23,6 @@ Simple project that creates a qrcode, created at the request of a friend of mine
 
 Before you starting, make sure you meet the following requirement:
 > `[🫡 node 18.x]`
-
-## 💻 How to use
 
 ```sh
 git clone https://github.com/Thiago-Mota-Santos/pagarmepix.git
@@ -81,7 +76,7 @@ https://www.conventionalcommits.org/en/v1.0.0/
 git push origin new-feature-branch
 ```
 
-## Social media
+## 📫 Media
 <br />
 <a href="https://www.linkedin.com/in/thiago-mota-907970251/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
 <a href="https://twitter.com/Thzinhdev" target="_blank"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" target="_blank"></a> 
