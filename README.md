@@ -17,7 +17,7 @@
 
 ## 👋 introduction
 
-Simple project that creates a QR code. Created at the request of a friend of mine who has a business, who complained it took a long time to open the cell phone application that has pix, enter the password, create a qrcode, put it on the screen and show it to the client. Or the simple fact that he had to read the pix key out loud to the customer, which also took some time, and then the customer would enter the value and have to show a receipt to see if everything was ok. The purpose of this application is to make this process faster and simpler. The evolution of this MVP includes creating even faster alternatives for carrying out this simple process. That's why I invite you to think with me about how to make this even faster.
+Simple project that creates a QR code. Created at the request of a friend of mine who has a business and complained about it taking too long to open the cell phone application that has pix, enter the password, create a qrcode, put it on the screen and show it to the client. Or the simple fact that he had to read the pix key out loud to the customer, which also took some time, and then the customer would enter the value and have to show a receipt to see if everything was ok. The purpose of this application is to make this process faster and simpler. The evolution of this MVP includes creating even faster alternatives for carrying out this simple process. That's why I invite you to think with me about how to make this even faster.
 
 ## 🏃💨 Starting
 
