@@ -8,7 +8,7 @@
 ## 📌 Contents
 - [👋 Introduction](#-introduction)
 - [🏃💨 Starting](#-starting)
-- [⚒️ stack](#-stack)
+- [⚒️ Stack](#-stack)
 - [🤝 Contributing](#-contributing)
 - [📫 Media](#-media)
 ---
