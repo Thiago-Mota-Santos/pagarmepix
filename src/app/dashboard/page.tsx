@@ -1,7 +1,7 @@
 'use client'
 
-import { Flex } from '@radix-ui/themes'
-import { ContentCard } from '../../components/ContentCard'
+import { Flex, Text } from '@radix-ui/themes'
+// import { ContentCard } from '../../components/ContentCard'
 import DashboardHeader from '../../components/DashboardHeader'
 import { UserAuth } from '@/context/AuthContext'
 import { useEffect } from 'react'
@@ -54,7 +54,8 @@ export default function Dashboard() {
         align="center"
         justify="center"
       >
-        <ContentCard status={owner.status ? owner.status : 'add'} />
+        {/* <ContentCard status={owner.status ? owner.status : 'add'} /> */}
+        <Text>A aplicação está em manutenção. Tente novamente mais tarde</Text>
       </Flex>
     </div>
   )
