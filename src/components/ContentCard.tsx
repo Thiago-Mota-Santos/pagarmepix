@@ -1,3 +1,5 @@
+import { query, where, getDocs, collection } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
 import { Button } from './ui/Button'
 import {
   Card,
@@ -8,10 +10,8 @@ import {
 } from './ui/Card'
 import { Avatar, Flex, Text } from '@radix-ui/themes'
 import { useRouter } from 'next/navigation'
-
-interface CardProps {
-  status?: 'add' | 'update'
-}
+import { db } from '@/firebase'
+import { UserAuth } from '@/context/AuthContext'
 
 type InfoType = {
   title: string
@@ -22,7 +22,11 @@ type InfoType = {
   disabled?: boolean
 }
 
-export function ContentCard({ status }: CardProps) {
+export function ContentCard() {
+  const { user } = UserAuth()
+
+  const ownerCollection = collection(db, 'owner')
+  const [status, setStatus] = useState<'add' | 'update'>('add')
   const router = useRouter()
 
   const handleClick = () => {
@@ -53,6 +57,17 @@ export function ContentCard({ status }: CardProps) {
       avatarSvg: './pix-hand.svg',
     },
   }
+
+  useEffect(() => {
+    const q = query(ownerCollection, where('id', '==', user!.uid))
+
+    getDocs(q).then((QuerySnapshot) => {
+      QuerySnapshot.forEach((doc) => {
+        setStatus(doc.data().owner)
+      })
+    })
+    getDocs
+  }, [])
 
   const RenderCard = ({
     title,
