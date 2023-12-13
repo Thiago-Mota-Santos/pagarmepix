@@ -101,7 +101,11 @@ export default function QrCode() {
         })
       })
       .catch((err) => {
-        console.error('Erro ao copiar texto para a área de transferência:', err)
+        toast({
+          title: 'Não foi possível copiar o QRCODE :(',
+          description: err,
+          variant: 'destructive',
+        })
       })
   }
 
@@ -156,7 +160,7 @@ export default function QrCode() {
               variant="outline"
             >
               <CopyIcon className="h-4 w-4" />
-              <Text as="span">Copy QR Code Link</Text>
+              <Text as="span">Copy QRCODE </Text>
             </Button>
             <Button
               className="bg-gray-900 hover:cursor-pointer hover:bg-gray-950 hover:transition-all"
