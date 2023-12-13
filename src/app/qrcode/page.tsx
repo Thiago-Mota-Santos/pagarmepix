@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react'
 import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore'
 import { db } from '@/firebase'
 import { Skeleton } from '@/components/ui/Skelleton'
+import { CopyIcon } from '@radix-ui/react-icons'
+import { useToast } from '@/components/ui/useToast'
 
 interface DataState {
   status?: string
@@ -21,6 +23,7 @@ interface DataState {
 }
 
 export default function QrCode() {
+  const { toast } = useToast()
   const [data, setData] = useState<DataState>({
     status: 'loading',
     receiverName: '',
@@ -30,6 +33,7 @@ export default function QrCode() {
     isUniqueTransaction: true,
     amount: '',
   })
+  // const [animation, setAnimation] = useState(false)
   const router = useRouter()
   const ownerCollection = collection(db, 'owner')
   const usersCollection = collection(db, 'users')
@@ -84,13 +88,29 @@ export default function QrCode() {
       </Flex>
     )
 
+  const pasteFromClipboard = () => {
+    const brcode = pix.getBRCode()
+
+    if (!brcode) return null
+
+    navigator.clipboard
+      .writeText(brcode)
+      .then(() => {
+        toast({
+          title: 'QRCODE copiado com sucesso 🥳',
+        })
+      })
+      .catch((err) => {
+        console.error('Erro ao copiar texto para a área de transferência:', err)
+      })
+  }
+
   const value = data.amount
     .replace('R$', '')
     .trim()
     .replace(/\./g, '')
     .replace(',', '.')
   const valueFormatted = parseFloat(value)
-  console.log(valueFormatted)
 
   const pix = PIX.static()
     .setReceiverName(data.receiverName || '')
@@ -123,19 +143,30 @@ export default function QrCode() {
           <Card mt="4" size="3">
             <Image
               alt="QRCODE"
-              height={300}
+              height={250}
               src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${pix.getBRCode()}`}
-              width={300}
+              width={250}
             />
           </Card>
-          <Button
-            className="bg-gray-900 hover:cursor-pointer hover:bg-gray-950 hover:transition-all"
-            mt="5"
-            onClick={handleRedirect}
-            radius="large"
-          >
-            Crie outro QRCODE
-          </Button>
+          <Flex className="flex items-center justify-center flex-col">
+            <Button
+              mt="2"
+              onClick={pasteFromClipboard}
+              className="hover:cursor-pointer hover:text-blue-700 transition-all"
+              variant="outline"
+            >
+              <CopyIcon className="h-4 w-4" />
+              <Text as="span">Copy QR Code Link</Text>
+            </Button>
+            <Button
+              className="bg-gray-900 hover:cursor-pointer hover:bg-gray-950 hover:transition-all"
+              mt="2"
+              onClick={handleRedirect}
+              radius="large"
+            >
+              Crie outro QRCODE
+            </Button>
+          </Flex>
           {/* <Button
             disabled={true}
             className="hover:cursor-pointer"
