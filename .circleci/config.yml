@@ -22,6 +22,7 @@ jobs:
           command: vercel deploy --prebuilt --token=$VERCEL_TOKEN
 
   production_deployment:
+    resource_class: medium+
     docker:
       - image: circleci/node:latest
     environment:
