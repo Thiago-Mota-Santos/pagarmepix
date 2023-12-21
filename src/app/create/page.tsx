@@ -81,7 +81,7 @@ export default function Create() {
     <div className="bg-primary-50 w-full min-h-screen md:pb-10">
       <DashboardHeader handleLogOut={handleLogOut} user={user} />
       <div className="flex flex-col items-center justify-center md:items-start md:flex-row gap-8 md:px-40 pb-40 md:pb-0">
-        <div className="flex flex-col w-[800px] h-[400px] border border-gray-300 rounded-2xl md:mt-16 md:px-32">
+        <div className="flex flex-col w-[800px] h-[400px] items-center justify-center border border-gray-300 rounded-2xl md:mt-16 md:px-32 md:w-200">
           <Text align="center" mt="5" size="6" weight="bold">
             Crie um novo QRCODE
           </Text>

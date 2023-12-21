@@ -9,6 +9,8 @@ import {
 } from '@radix-ui/react-menubar'
 import { AvatarIcon, ArrowLeftIcon } from '@radix-ui/react-icons'
 import { User } from 'firebase/auth'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 interface HeaderProps {
   handleLogOut: () => void
@@ -16,12 +18,23 @@ interface HeaderProps {
 }
 
 export default function DashboardHeader({ handleLogOut, user }: HeaderProps) {
+  const router = useRouter()
+
   const handleProfile = () => {
-    console.log('profile')
+    router.push('/profile')
   }
 
   return (
-    <Box className="flex items-center p-2 mr-2 justify-end">
+    <Box className="flex items-center p-2 mr-2 justify-between">
+      <Flex>
+        <Image
+          src="./pix-hand.svg"
+          alt="pix-logo"
+          width={80}
+          height={80}
+          className="ml-auto"
+        />
+      </Flex>
       <Flex align="center">
         <Menubar>
           <MenubarMenu>

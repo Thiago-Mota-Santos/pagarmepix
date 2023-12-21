@@ -38,7 +38,7 @@ export default function Home() {
 
         {!user ? (
           <a
-            className="py-2 px-4 text-white bg-gray-950 normal-case rounded hover:scale-110"
+            className="py-2 mr-2 px-4 text-white bg-gray-950 normal-case rounded hover:scale-110"
             href="/login"
           >
             Entrar

@@ -30,7 +30,7 @@ export default function FormPanel({ handleSubmit }: FormInterface) {
   }
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target
     setStatus((prevStatus) => ({
@@ -41,8 +41,8 @@ export default function FormPanel({ handleSubmit }: FormInterface) {
   }
 
   return (
-    <Form className="mt-10" onSubmit={handleSubmit}>
-      <FormField className="grid mb-4" name="name">
+    <Form className="mt-10 mb-10 items-center" onSubmit={handleSubmit}>
+      <FormField className="grid mb-4 items-center" name="name">
         <Flex align="baseline" display="flex" justify="between">
           <FormLabel className="text-base font-medium text-black">
             Nome do cliente
