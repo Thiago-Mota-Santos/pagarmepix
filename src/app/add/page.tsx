@@ -27,7 +27,7 @@ export default function Add() {
   }
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target
     setOwner((prevStatus) => ({
@@ -66,8 +66,8 @@ export default function Add() {
   return (
     <div className="bg-primary-50 w-full min-h-screen md:pb-10">
       <DashboardHeader handleLogOut={handleLogOut} user={user} />
-      <div className="flex flex-col items-center justify-center md:items-start md:flex-row gap-8 md:px-40 pb-40 md:pb-0">
-        <div className="flex flex-col w-[800px] h-[500px] border border-gray-300 rounded-2xl md:mt-16 md:px-32">
+      <div className="flex flex-col items-center justify-center md:items-start md:flex-row gap-8 md:px-40 pb-40 md:pb-30">
+        <div className="flex flex-col w-[800px] h-[500px] border border-gray-300 rounded-2xl md:mt-16 md:p-32">
           <Text align="center" mt="4" size="6" weight="bold">
             Cadastre suas credenciais
           </Text>

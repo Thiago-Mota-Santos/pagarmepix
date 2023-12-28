@@ -77,7 +77,7 @@ export function ContentCard() {
     handleClick,
     disabled,
   }: InfoType) => (
-    <Card className="hover:border  hover:border-black hover:transition-all">
+    <Card className="hover:border  hover:border-black hover:transition-all mt-4">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
@@ -109,26 +109,25 @@ export function ContentCard() {
   )
 
   return (
-    <>
-      <div>
-        {status === 'add' ? (
-          <RenderCard
-            title={info.add.title}
-            description={info.add.description}
-            buttonText={info.add.buttonText}
-            avatarSvg={info.add.avatarSvg}
-            handleClick={handleClick}
-          />
-        ) : (
-          <RenderCard
-            title={info.update.title}
-            description={info.update.description}
-            buttonText={info.update.buttonText}
-            avatarSvg={info.update.avatarSvg}
-            handleClick={handleClick}
-          />
-        )}
-      </div>
+    <div>
+      {status === 'add' ? (
+        <RenderCard
+          title={info.add.title}
+          description={info.add.description}
+          buttonText={info.add.buttonText}
+          avatarSvg={info.add.avatarSvg}
+          handleClick={handleClick}
+        />
+      ) : (
+        <RenderCard
+          title={info.update.title}
+          description={info.update.description}
+          buttonText={info.update.buttonText}
+          avatarSvg={info.update.avatarSvg}
+          handleClick={handleClick}
+        />
+      )}
+
       <RenderCard
         title={info.create.title}
         description={info.create.description}
@@ -136,6 +135,6 @@ export function ContentCard() {
         avatarSvg={info.create.avatarSvg}
         handleClick={handleCreate}
       />
-    </>
+    </div>
   )
 }
