@@ -34,17 +34,13 @@ jobs:
       VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID
     steps:
       - checkout
-      - run:
-          name: The First Step
-          command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+
       - run:
           name: Install Vercel CLI
           command: sudo npm install --global vercel@latest
       - run:
-          name: Debug
-          command: echo "$VERCEL_ORG_ID"
+          name: dubugging
+          command: echo "VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID"
       - run:
           name: Pull Vercel Environment Information
           command: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
