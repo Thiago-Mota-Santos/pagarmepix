@@ -39,7 +39,7 @@ jobs:
           command: sudo npm install --global vercel@latest
       - run:
           name: Debug
-          command: echo "VERCEL_ORG_ID: $VERCEL_ORG_ID"
+          command: echo {{ $VERCEL_ORG_ID }}
       - run:
           name: Pull Vercel Environment Information
           command: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
