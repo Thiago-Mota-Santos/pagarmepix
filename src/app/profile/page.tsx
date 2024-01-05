@@ -7,7 +7,7 @@ import DashboardHeader from '@/components/DashboardHeader'
 import { useRouter } from 'next/navigation'
 
 export default function Profile() {
-  const { user } = UserAuth()
+  const { user, logOut } = UserAuth()
   const { owner } = AccountForm()
   const router = useRouter()
 
@@ -15,10 +15,11 @@ export default function Profile() {
     router.push('/add')
   }
 
-  console.log('user', owner)
+  if (!user) return null
+
   return (
     <div className="bg-primary-50 w-full min-h-screen md:pb-10">
-      <DashboardHeader user={user} />
+      <DashboardHeader user={user} handleLogOut={logOut} />
       <div className="flex flex-col items-center justify-center md:items-start md:flex-row gap-8 md:px-40 pb-40 md:pb-0">
         <Flex
           width="auto"
