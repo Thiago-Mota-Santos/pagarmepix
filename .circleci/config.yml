@@ -17,13 +17,13 @@ jobs:
           command: sudo npm install --global vercel@latest
       - run:
           name: Pull Vercel Environment Information
-          command: vercel pull --yes --environment=preview --token=zXw6aw1fNZlXUbd7JV1vgHDg
+          command: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
       - run:
           name: Build Project Artifacts
-          command: vercel build --token=zXw6aw1fNZlXUbd7JV1vgHDg
+          command: vercel build --token=$VERCEL_TOKEN
       - run:
           name: Deploy Project Artifacts to Vercel
-          command: vercel deploy --prebuilt --token=zXw6aw1fNZlXUbd7JV1vgHDg
+          command: vercel deploy --prebuilt --token=$VERCEL_TOKEN
 
   production_deployment:
     resource_class: medium+
@@ -38,14 +38,17 @@ jobs:
           name: Install Vercel CLI
           command: sudo npm install --global vercel@latest
       - run:
+          name: Debug
+          command: echo "VERCEL_ORG_ID: $VERCEL_ORG_ID"
+      - run:
           name: Pull Vercel Environment Information
-          command: vercel pull --yes --environment=production --token=zXw6aw1fNZlXUbd7JV1vgHDg
+          command: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
       - run:
           name: Build Project Artifacts
-          command: vercel build --prod --token=zXw6aw1fNZlXUbd7JV1vgHDg
+          command: vercel build --prod --token=$VERCEL_TOKEN
       - run:
           name: Deploy Project Artifacts to Vercel
-          command: vercel deploy --prebuilt --prod --token=zXw6aw1fNZlXUbd7JV1vgHDg
+          command: vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
 
 workflows:
   version: 2
