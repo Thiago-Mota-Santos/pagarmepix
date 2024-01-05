@@ -40,7 +40,8 @@ jobs:
           command: sudo npm install --global vercel@latest
       - run:
           name: dubugging
-          command: echo "VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID"
+          command: | 
+echo "VERCEL_PROJECT_ID: $VERCEL_PROJECT_ID"
       - run:
           name: Pull Vercel Environment Information
           command: vercel pull --yes --environment=production --token=$VERCEL_TOKEN
