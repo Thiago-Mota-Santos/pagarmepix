@@ -44,8 +44,7 @@ export default function Add() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(owner)
-    // TODO: setDoc
-    // TODO: loading statement
+
     try {
       setDoc(doc(db, 'owner', user.uid), {
         name: owner.name,
