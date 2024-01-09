@@ -6,6 +6,8 @@ import Image from 'next/image'
 import { useToast } from '@/components/ui/useToast'
 import { UserAuth } from '@/context/AuthContext'
 import { Icons } from '@/components/Icons'
+import { Input } from '@/components/ui/Input'
+import { Button } from '@/components/ui/Button'
 
 interface Loading {
   email?: boolean
@@ -13,7 +15,15 @@ interface Loading {
 }
 
 export default function Login() {
-  const { user, googleSignIn } = UserAuth()
+  const {
+    user,
+    googleSignIn,
+    normalSignIn,
+    email,
+    setEmail,
+    password,
+    setPassword,
+  } = UserAuth()
   const [loading, setLoading] = useState<Loading>({
     email: false,
     google: false,
@@ -48,24 +58,24 @@ export default function Login() {
     }
   }
 
-  // const handleNormalLogin = async () => {
-  //   try {
-  //     setLoading({
-  //       email: true,
-  //     })
-  //     await normalSignIn()
-  //   } catch (error) {
-  //     setLoading({
-  //       email: false,
-  //     })
-  //     toast({
-  //       title: 'Algo deu errado :(',
-  //       description: String(error),
-  //       variant: 'destructive',
-  //     })
-  //     console.error(error)
-  //   }
-  // }
+  const handleNormalLogin = async () => {
+    try {
+      setLoading({
+        email: true,
+      })
+      await normalSignIn()
+    } catch (error) {
+      setLoading({
+        email: false,
+      })
+      toast({
+        title: 'Algo deu errado :(',
+        description: String(error),
+        variant: 'destructive',
+      })
+      console.error(error)
+    }
+  }
 
   return (
     <>
@@ -90,10 +100,7 @@ export default function Login() {
               </p>
               <p className="text-gray-500 mt-4">entre com sua conta Google.</p>
             </div>
-
-            {/* TODO: add email/senha login */}
-
-            {/* <Input
+            <Input
               name="email"
               value={email}
               placeholder="email"
@@ -104,10 +111,9 @@ export default function Login() {
               value={password}
               type="password"
               placeholder="password"
-              onChange={(e) => setPassword(e.target.value)} 
+              onChange={(e) => setPassword(e.target.value)}
             />
-          */}
-            {/* <Button
+            <Button
               disabled={loading.email}
               onClick={handleNormalLogin}
               className="bg-gray-800 hover:bg-gray-900 transition-all"
@@ -116,7 +122,7 @@ export default function Login() {
                 <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
               ) : null}
               Entrar
-            </Button> */}
+            </Button>
             <div className="flex items-center justify-center">
               <Separator size="3" />
               <Text
