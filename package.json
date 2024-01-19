@@ -45,7 +45,7 @@
     "yarn": "^1.22.19"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^13.4.19",
+    "@next/eslint-plugin-next": "^14.1.0",
     "@types/node": "^18.11.17",
     "@types/react": "^18.2.5",
     "@types/react-dom": "^18.2.4",
